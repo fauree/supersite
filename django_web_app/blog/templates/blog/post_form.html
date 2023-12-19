@@ -1,0 +1,20 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section pt-2 mt-3" id="inpostform" >
+          <form action="" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">
+                        Post
+                    </legend>
+                    {{ form|crispy }}
+              </fieldset>
+              <div class="form-group">
+                  
+                  <button class="btn btn-outline-primary" type="submit"><img src="https://psv4.userapi.com/c235131/u179147971/docs/d53/2bccbef95052/Arhive_alt_export.png?extra=PP_u8UlZ0-ZrH3ukxdjwUeZoewCyPoghB7nYPCaF4Xk6O8GVkr8wv1t7o6SjibPeNCMdpXNMVFcQdXxe7QAQ-Uwq-9yXQfN1vWVthI719Y7NhmDUh9JPR8H_1nXOymqVfiPGlVYOE2D5p3yGknEUpQ" alt="upload"> Upload</button>
+              </div>
+          </form>
+         
+      </div>
+{% endblock content %}

@@ -1,0 +1,129 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head> 
+    
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" >
+    <link rel="stylesheet" href="{% static 'blog/main.css' %}">
+    {% if title %}
+        <title>Sophia - {{title}}</title>
+    {% else %}
+        <title>Sophia</title>
+    {% endif %}
+    
+    <style>
+      #changecolor:hover {
+        background-color: #53A1CF;
+      }
+      #changecolor {
+        border-color: #53A1CF;
+      }
+      #changecolor #changeimgcolor:hover {
+        filter: brightness(100);
+      }
+      /* #postform {
+        border: none;
+        border-radius: 30px 30px;
+        box-shadow: 0px 0px 30px #d3e9f5;
+        width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+      } */
+      #inpostform {
+        border: none;
+        border-radius: 20px 20px;
+        box-shadow: 5px 10px 20px #a4c9dc;
+        margin-top: 50px;
+        padding-top: 20px;
+        width: 95%;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: #fff;
+      }
+      #title {
+        margin-left: auto;
+        margin-right: auto;
+        width: 95%;
+        padding-top: 20px;
+      }
+      #buttonsBott{
+        /* color: #53A1CF; */
+        border-color: #53A1CF;
+      }
+      #buttonsBott:hover {
+        background-color: #53A1CF;
+        /* border-color: #53A1CF; */
+      }
+      #buttonsBott:active {
+        background-color: #53A1CF;
+        border-color: #53A1CF;
+      }
+      #buttonsBottom {
+        margin-left: 2.35%;
+      }
+    </style>
+
+</head> 
+  <body style = "font-family: 'Montserrat', sans-serif; height: 100%;">
+        <nav class="navbar navbar-expand-lg navbar-dark" style = "background-color: #53A1CF">
+                <a class="navbar-brand font-weight-bold" href="{% url 'blog-home' %}" style = "font-family: 'Montserrat', sans-serif;"> Sophie </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+              
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                      <a class="nav-link" href="{% url 'blog-home' %}"><img src="https://psv4.userapi.com/c909328/u179147971/docs/d1/2c79e770467e/home.png?extra=sBgGExnQyH8DopozMYz26H1udNc1WG2ErSaS4GfgPYsuz49dqwQbN91_zp6TqQzOcq_ATjGQyLJOnQ0OxBsQM-pI8cX-nTADOVeopMd_B4FG9fd0abhFvrZ8oWq95Ge5Zzf7Sl_ElnPTQbzyjybq0A" alt="Home"> Home <span class="sr-only">(current)</span></a>
+                    </li>
+                   
+
+                    
+                  </ul>
+                  <!------{{ request.get_host }}/blog/search/-->
+                  <form id="searchform" action="{% url 'search' %}" method="get">
+                    <input type="text" name="q" type="text" value="{{ request.GET.q }}" placeholder="Search Here..." style = "border-radius: 20px; border-style: none;" />
+                    <button type="button" onclick="searchform.submit()" class=" text-white my-color btn-primary"  style = "border-radius: 20px; background-color: #53A1CF; border-style: none;">
+                    <img src="https://psv4.userapi.com/c909418/u179147971/docs/d45/1d19f260245e/Search_alt.png?extra=tCFJnd1qH6Vrvb8I0c-XUOpXd_PIONkXw2fmxm9ASrtQ_Z5yEhI_56vIAU87o4xKNQXapoS78aqsFtIY2Bwz57ACgEE14FbAiG0TcNE_CSRNlFG4xf-MCuDuw8Xb-1J5mSZ4PNdY2Sa1xoqTbNg9AA" alt="search"></button>
+                </form>
+              
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'user-posts' user %}" class="btn text-white m-2"><img src="https://psv4.userapi.com/c909228/u179147971/docs/d25/7c4aebc9f879/my_posts.png?extra=KTl_2vvtQXFjhQpA6kDcpSc_S-8eoJsry5w0lfx50e9-IGc8-7QojFufnc9uUUcYykD6FgY9TOZO9bizazQ9kGBvjpkrgMLvICBS99GaXfiTPc_Hkr4ug_hIqCNDUd65sAcywgMA0j8X7vYYIBfqrg" alt="my post"> My Post</a>
+                    <a href="{% url 'post-create' %} " class="btn text-white m-2"><img src="https://psv4.userapi.com/c909518/u179147971/docs/d14/5dd1655d896c/Add_square.png?extra=XVY4iJd4SQEYQKx_3nJNjvSrY2C7aTsbgL3VTOi4mo1-_Cm8zQP_gcBD-QTVFc7DMyn-rwzSyPCWiZIJikDUoSuiUnJr6NBfp_QwMEn49UQLvu5-I-eKxmPvhcrVDvao_XMep0xOoGJkrrKsKl8MXQ" alt="new post"> New Post</a>
+                    <a href="{% url 'profile' %} " class="btn text-white m-2"><img src="https://psv4.userapi.com/c237131/u179147971/docs/d6/bf7970ea3bdd/User_2.png?extra=KM_FHRh0IwEmrjNXTWWBK6Ji5Y9e5QhuMtQQRSRSScSFGuMkZAfMKrexxGm89lckdaPEwgVJsX3RVWQSI_l6_5xT0SXCbepYVlPf5T98ObdPB_0ZK1o2fInHSgTWcoEotwV0UByBBLzKSVlrJBqbhw" alt="user profile"></i> {{ user.username }}</a>
+                    <a href="{% url 'logout' %} " class="btn text-white m-2"><img src="https://psv4.userapi.com/c909418/u179147971/docs/d13/f968de9694f4/Sign_out_squre.png?extra=_5VmuI6iT-PP00ZlLpwTmgIjp0eLYya7VSQXrj4a4HJKC38-mEvCAVFYnMcGv2e_N16z481lfam8Zw5f4V6b1K6JUoEq2yb5pmx7pqSU3BqdCrx2qry4qKvykD3FQAxPa5B8RSkrblMOm4rWo3l09g" alt="log out"> Log Out</a>
+                    
+                    {% else %}
+                    <a href="{% url 'login' %} " class="btn text-white m-2"><img src="https://psv4.userapi.com/c909518/u179147971/docs/d53/09c1813f8914/User.png?extra=KLYnWfUpuVN6a9oJmYLoCB6i2G2_vKYUdg6sji4tphiSmi80V4vuwuX0vmZFcDzvruAeSKaI49NI6P_KisVDdZ_Bxlw2X-YmBolHawWV20sAoXy37O83YqI7S8YbbCEYQJLaGLid4vIaZ1IFUkatZA" alt="login"></i> Log In</a>
+                   
+                    <a href="{% url 'register' %} " class="btn text-white m-2"><img src="https://psv4.userapi.com/c909518/u179147971/docs/d52/e1b08157122f/User_add.png?extra=Fcp4N3sPy5JFV9yWOAQo9zQXN3LPx_peUxEHMGrvvrSWZuqbf5yksqOMygJETKiVpz32yO8W_v9c6qH8jiiEOpZ5AjvnyE7pIsfxaqXr2yhXjogXi9clPvYHgeXT_CtKC7TzMUJEto4O71N7dISd3Q" alt="signup"> Sign Up</a>
+                    {% endif %}
+                  
+                </div>
+              </nav>
+      <div class="container my-bg">
+        {% if messages %}
+          {% for message in messages %}
+              <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+              </div>
+          {% endfor %}
+        {% endif %}
+    {% block content %}
+      
+    {% endblock  %}
+</div> 
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="{% static 'blog/main.js' %}"></script>
+  </body>
+</html>

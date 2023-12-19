@@ -1,0 +1,55 @@
+{% extends "blog/base.html" %}
+{% block content %}
+    {% for post in posts %}
+      <div class="media content-section" id="inpostform">
+        <a href="{{ post.author.profile.image.url }} " target="_blank"> <img src="{{ post.author.profile.image.url }}  " alt="" class="article-img rounded-circle img-thumbnail img-fluid">
+        </a>
+        <div class="media-body">
+          <div class="article-metadata d-flex justify-content-between"> 
+            <a class="mr-2 " href="{% url 'user-posts' post.author.username  %}"><h3>{{ post.author }}</h3></a>
+              <small class="text-muted">{{ post.date_upload|date:"F d, Y" }}</small>
+          </div>
+          {% if post.file %}
+          <a href="{{ post.file.url }}"  download class="text-dark text-justify "><h5>{{ post.blog }}</h5></a>
+          {% endif %}
+     
+      
+     
+          <h2><a class="article-title text-justify " href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
+          <div class="d-flex justify-content-between">
+            <p class="article-content text-justify text-truncate overflow-hidden">{{ post.content }}</p>
+            {% if post.file %}
+          <div class="form-group mt-0 pt-0  m-2">          
+            <a class="btn btn-outline-primary  btn-d"  href="{{ post.file.url }}" download type="submit" id="changecolor">
+            <img src="https://psv4.userapi.com/c235131/u179147971/docs/d54/c9b9f63f32af/Arhive_alt_add.png?extra=GYs82VXxRv8gnUPYG3gqZQnjTjJ-YNGF22hGrMx_zANZHKyoPZVsmGj9u4wGnXxo8xWMGK0smdxFQXFovmQuTAP9YXyAHau631oY
+            5uhxXv2R_uccT_00WBDZaR2Ltef8h7GX7DGSj1XVspejaYMVCw" alt="download" id="changeimgcolor"></a>
+          </div>
+          {% endif %}
+        
+          </div>
+      
+        </div>
+      </div>   
+    {% endfor %}
+    {% if is_paginated %}
+
+      {% if page_obj.has_previous %}
+        <a class="btn btn-outline-info mb-4" href="?page=1" id="buttonsBottom">First</a>
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+      {% endif %}
+
+      {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+          <a class="btn btn-info mb-4" href="?page={{ num }}" id="buttonsBottom">{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+          <a class="btn btn-outline-info mb-4" href="?page={{ num }}" id="buttonsBott">{{ num }}</a>
+        {% endif %}
+      {% endfor %}
+
+      {% if page_obj.has_next %}
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}" id="buttonsBott">Next</a>
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}" id="buttonsBott">Last</a>
+      {% endif %}
+
+    {% endif %}
+{% endblock content %}

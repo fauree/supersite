@@ -1,0 +1,46 @@
+{% extends "blog/base.html" %}
+{% block content %}
+<div class="jumbotron mt-3 shadow-lgent-section" id="inpostform">
+   <a href="{{ object.author.profile.image.url }} " target="_blank"> <img src="{{ object.author.profile.image.url }}  " alt="" class="article-img rounded-circle img-thumbnail img-fluid">
+   </a>
+    <div class="media-body">
+      <div class="">
+        <div class="d-flex justify-content-between">
+        <a class="mr-2 mt-0 mb-0  text-dark" href="{% url 'user-posts' object.author.username  %}"><h3>{{ object.author }}</h3></a>
+        <small class="text-muted  text-align-right">{{ object.date_upload }}</small>
+        </div>
+        {% if object.author != user %}
+          <div class="form-group mt-0 pt-0 d-flex justify-content-end">          
+            <a href="{{ object.file.url }}" download class="btn btn-primary flex-last" type="submit"><img src="https://psv4.userapi.com/c235131/u179147971/docs/d54/c9b9f63f32af/Arhive_alt_add.png?extra=GYs82VXxRv8gnUPYG3gqZQnjTjJ-YNGF22hGrMx_zANZHKyoPZVsmGj9u4wGnXxo8xWMGK0smdxFQXFovmQuTAP9YXyAHau631oY5uhxXv2R_uccT_00WBDZaR2Ltef8h7GX7DGSj1XVspejaYMVCw" alt="download"></i> Download</a>
+          </div>
+        {% endif %}
+        <hr>
+        {% if object.author == user %}
+          <div>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
+          </div>
+        {% endif %}
+      </div>
+      <div>
+        {% if object.file %}
+          {% if object.extension == '.jpg' or object.extension == 'jpeg' or object.extension == 'png' %}
+            <a href="{{ object.file.url }}"  download ><img src="{{ object.file.url }}" alt="" class="img-fluid "></a>
+            <a href="{{ object.file.url }}"  download class="text-dark"><h5>{{ object.file }}</h5></a>
+          {% elif object.extension == '.mp4' %}
+            <div class="embed-responsive embed-responsive-16by9">
+              <video id="video-1_html_api" class="vjs-tech" preload="auto" autoplay >
+                <source src="{{ object.file.url }}" type="video/mp4" class="embed-responsive">
+              </video>
+            </div>
+            <a href="{{ object.file.url }}"  download class="text-dark"><h5>{{ object.file }}</h5></a>
+          {% else %}
+            <a href="{{ object.file.url }}"  download class="text-dark"><h5>{{ object.file }}</h5></a>
+          {% endif %}
+        {% endif %}
+      </div>
+      <h2>{{ object.title }}</h2>
+      <p class="article-content">{{ object.content }}</p>
+    </div>
+  </article>
+{% endblock content %}
